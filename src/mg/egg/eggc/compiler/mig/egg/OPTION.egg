@@ -1,0 +1,58 @@
+------------------ ***** -----------------------------
+-- Migration de la grammaire de OPTION-- vers la nouvelle syntaxe
+------------------ ***** -----------------------------
+--OPTIONS
+option k =1;
+option auto =true;
+option version =5.0.0;
+--ATTRIBUTS
+inh table : TDS for
+  O;
+syn val : BOOLEAN for
+  BOOL;
+
+--TERMINAUX
+space separateur is "[\r\n\t ]+";
+sugar t_k is "k";
+sugar t_eg is "=";
+sugar t_pv is "\;";
+sugar t_vrai is "true";
+sugar t_faux is "false";
+sugar t_auto is "auto";
+sugar t_version is "version";
+term t_vk is "[1-5]";
+term t_vv is "[0-9]+(\.[0-9]+(\.[0-9]+)?)?";
+
+--EXTERNES
+
+--REGLES
+O-> t_k t_eg t_vk t_pv #gen;
+#gen{
+
+  O^table.setK(t_vk^txt);
+}
+
+O-> t_version t_eg t_vv t_pv #gen;
+#gen{
+
+  O^table.setVersion(t_vv^txt);
+}
+
+O-> t_auto t_eg BOOL t_pv #gen;
+#gen{
+
+  O^table.setAuto(BOOL^val);
+}
+
+BOOL-> t_vrai #val;
+#val{
+
+  BOOL^val = true;
+}
+
+BOOL-> t_faux #val;
+#val{
+
+  BOOL^val = false;
+}
+

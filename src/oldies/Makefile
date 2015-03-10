@@ -1,18 +1,7 @@
-MDIR=../../../../../../workspace-egg-2015/mg.egg.eggc-cmd-mig/
-# les jars associes
-MJAR=$(MDIR)eggcx.jar
-
-# EDIR=../../../../../../egg-new-syntax/src/
-#EGGJAR=$(EDIR)eggc.jar
-EDIR=../../../../
-#EGGJAR=$(EDIR)eggc-5.4.0.jar
-EGGJAR=$(EDIR)eggc-6.0.0.jar
-ODIR=./
-# OUTJAR=$(ODIR)eggc-6.0.0.jar
-OUTJAR=$(ODIR)eggc-6.0.0.jar
+EGGJAR=./eggc-5.3.1.jar
+OUTJAR=./eggc.jar
 JDIR=/usr/bin
-JOPTS=-O -source 1.6 -target 1.6 -Xlint:unchecked -encoding UTF-8
-JAVAC=$(JDIR)/javac $(JOPTS)
+JAVAC=$(JDIR)/javac -O -source 1.6 -target 1.6 -Xlint:unchecked -encoding UTF-8
 JAVA=$(JDIR)/java
 JAR=$(JDIR)/jar
 JAVADOC=$(JDIR)/javadoc
@@ -25,8 +14,7 @@ ELANG=EXPREG
 
 #################
 
-all2 : ljava package legg class comp jar
-all : ljava chk package legg class comp jar
+all : ljava package legg class comp jar
 
 ljava: 
 	$(JAVAC) -classpath . mg/egg/eggc/runtime/libjava/*.java
@@ -44,24 +32,12 @@ legg:
 	mg/egg/eggc/compiler/libegg/egg/*.java \
 	mg/egg/eggc/compiler/libegg/latex/*.java
 
-chk :
-	cd mg/egg/eggc/compiler/mig && \
-	$(JAVA) -cp ../$(MJAR) mg.egg.eggc.compiler.EGGC $(XLANG).egg && \
-        cp egg/$(XLANG).egg ../egg && \
-	$(JAVA) -cp ../$(MJAR) mg.egg.eggc.compiler.EGGC $(OLANG).egg && \
-        cp egg/$(OLANG).egg ../egg && \
-	$(JAVA) -cp ../$(MJAR) mg.egg.eggc.compiler.EGGC $(LLANG).egg && \
-        cp egg/$(LLANG).egg ../egg && \
-	$(JAVA) -cp ../$(MJAR) mg.egg.eggc.compiler.EGGC $(ELANG).egg && \
-        cp egg/$(ELANG).egg ../egg 
-
-
 package:
 	cd mg/egg/eggc/compiler/egg && \
-	$(JAVA) -jar ../$(EGGJAR) $(XLANG).egg && \
-	$(JAVA) -jar ../$(EGGJAR) $(OLANG).egg && \
-	$(JAVA) -jar ../$(EGGJAR) $(LLANG).egg && \
-	$(JAVA) -jar ../$(EGGJAR) $(ELANG).egg 
+	$(JAVA) -jar ../../../../../$(EGGJAR) $(XLANG).egg && \
+	$(JAVA) -jar ../../../../../$(EGGJAR) $(OLANG).egg && \
+	$(JAVA) -jar ../../../../../$(EGGJAR) $(LLANG).egg && \
+	$(JAVA) -jar ../../../../../$(EGGJAR) $(ELANG).egg 
 
 class: mg/egg/eggc/compiler/egg/java
 	$(JAVAC) -classpath . mg/egg/eggc/compiler/egg/java/*.java

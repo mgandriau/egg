@@ -113,7 +113,7 @@ term       t_flottant       is    "[0-9]*\.[0-9]+(e[\+\-]?[0-9]+)?" ;
 macro    hex        is    "[0-9a-fA-F]" ;
 macro    uni        is    "\\u{hex}{hex}{hex}{hex}" ;
 macro    oct        is    "\\[0-3][0-7][0-7]" ;
--- je laisse %N et %N pour la compatibilité,
+-- je laisse %N et %N pour la compatibilite,
 -- le visiteur java les remplace par \n et \t
 macro    esc        is    "({uni}|{oct}|\\[nrtfb]|\%[NT])" ;
 macro    scar       is    "[^\\\"]" ;
@@ -146,7 +146,7 @@ end
 local
   c : STRING;
 do
-  -- met à jour le code de l'action
+  -- met a jour le code de l'action
   LACTION^code := LACTION^avis.insts() @ INSTS^code;
   LACTION^avis.decIndent();
   length := LACTION^scanner.getOffset() + LACTION^scanner.getLength() - offset;
@@ -244,7 +244,7 @@ do
     AFF^hentree := v;
     t.ajouter_locale(v);
 
-    -- inférence de type
+    -- inference de type
     r.contDecl(v);
   end
 end
@@ -282,7 +282,7 @@ do
     -- expr est un triplet (nom, type, val)
     AFF^code := "%N" @ AFF^avis.indent() @ AFF^avis.aff(AFF^hentree, EXPR^code);
 
-    -- inférence
+    -- inference
     r := AFF^act.getResolveur();
     r.contAff(AFF^hentree, EXPR^type);
   end
@@ -315,7 +315,7 @@ do
     -- expr est un triplet (nom, type, val)
     INST2^code := INST2^avis.aff(INST2^hentree, EXPR^code);
 
-    -- inférence
+    -- inference
     r := INST2^act.getResolveur();
     r.contAff(INST2^hentree, EXPR^type);
   end
